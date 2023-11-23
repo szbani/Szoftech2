@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Szoftech.Tarolok;
 
 namespace Szoftech
 {
@@ -14,6 +15,7 @@ namespace Szoftech
         static void Main(string[] args)
         {
             FelhasznaloTarolo.beolvas();
+            BicikliPontTarolo.beolvas();
             // _felhasznalo = new Admin("admin", "admin", "admin", FelhasznaloTipus.Admin);
             while (kilepes == false)
             {
@@ -32,6 +34,9 @@ namespace Szoftech
                         _felhasznalo.menu();
                         break;
                     case FelhasznaloTipus.Admin:
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine();
                         Console.WriteLine("Admin");
                         _felhasznalo.menu();
                         // FelhasznaloTarolo.felhasznaloHozzaad(felhasznalo);

@@ -25,15 +25,16 @@ namespace Szoftech
             FelhasznaloTarolo.felhasznaloTorol(felhasznalo);
         }
 
-        public void felhasznaloModositasa(Felhasznalo felhasznalo)
+        public void felhasznaloModositasa(Felhasznalo felhasznalo,Felhasznalo ujFelhasznalo)
         {
+            felhasznalo = ujFelhasznalo;
         }
 
         public void felhasznaloKereses(string nev)
         {
             for (int i = 0; i < FelhasznaloTarolo.Felhasznalok.Count; i++)
             {
-                if (FelhasznaloTarolo.Felhasznalok[i].nev.Contains(nev))
+                if (FelhasznaloTarolo.Felhasznalok[i].nev.ToLower().Contains(nev.ToLower()))
                     Console.WriteLine(FelhasznaloTarolo.Felhasznalok[i].nev);
             }
         }
@@ -41,33 +42,39 @@ namespace Szoftech
         public void felhasznaloListazas()
         {
             for (int i = 0; i < FelhasznaloTarolo.Felhasznalok.Count; i++)
-                Console.WriteLine(
-                    $"{FelhasznaloTarolo.Felhasznalok[i].felhasznaloNev} {FelhasznaloTarolo.Felhasznalok[i].jelszo} {FelhasznaloTarolo.Felhasznalok[i].nev}");
+                Console.WriteLine($"{FelhasznaloTarolo.Felhasznalok[i].felhasznaloNev} {FelhasznaloTarolo.Felhasznalok[i].jelszo} {FelhasznaloTarolo.Felhasznalok[i].nev}");
         }
 
-        public void karbantartoJogokKezelese(Karbantarto karbantarto)
+        public void karbantartoJogokKezelese(KolcsonzoSzemely karbantarto,bool tipus)
         {
+            if (tipus)
+                karbantarto.setTipus(FelhasznaloTipus.Karbantarto);
+            else
+                karbantarto.setTipus(FelhasznaloTipus.KolcsonzoSzemely);
         }
 
         public void bicikliPontLetrehozas(BicikliPont bicikliPont)
         {
             BicikliPontTarolo.BicikliPontHozzaadasa(bicikliPont);
+            BicikliPontTarolo.kiment();
         }
 
         public void bicikliPontTorlese(BicikliPont bicikliPont)
         {
             BicikliPontTarolo.BicikliPontTorlese(bicikliPont);
+            BicikliPontTarolo.kiment();
         }
 
-        public void bicikliPontModositasa(BicikliPont bicikliPont)
+        public void bicikliPontModositasa(BicikliPont bicikliPont,string nev)
         {
+            bicikliPont.setNev(nev);
         }
 
         public void bicikliPontKereses(string cim)
         {
             for (int i = 0; i < BicikliPontTarolo.BicikliPontok.Count; i++)
             {
-                if (BicikliPontTarolo.BicikliPontok[i].getNev().Contains(cim))
+                if (BicikliPontTarolo.BicikliPontok[i].getNev().ToLower().Contains(cim.ToLower()))
                     Console.WriteLine($"{BicikliPontTarolo.BicikliPontok[i].getNev()}");
             }
         }
@@ -80,7 +87,7 @@ namespace Szoftech
 
         public override void menu()
         {
-
+            Console.WriteLine();
             Console.WriteLine("1. Bicikli akciok");
             Console.WriteLine("2. Felhasznalo akciok");
             Console.WriteLine("3. Bicikli pont akciok");
@@ -96,10 +103,10 @@ namespace Szoftech
                     bicikliAkciok();
                     break;
                 case "2":
-                    bicikliPontAkciok();
+                    felhasznaloAkciok();
                     break;
                 case "3":
-                    felhasznaloAkciok();
+                    bicikliPontAkciok();
                     break;
                 case "4":
                     kijelentkezes();
@@ -115,6 +122,7 @@ namespace Szoftech
 
         public void bicikliAkciok()
         {
+            Console.WriteLine();
             Console.WriteLine("1. Bicikli hiba jelentése");
             Console.WriteLine("2. Bicikli kölcsönzése");
             Console.WriteLine("3. Bicikli leadása");
@@ -178,14 +186,12 @@ namespace Szoftech
                     bicikli = new Bicikli(rendszam, tipus, false, false);
                     bicikliHozaadasa(bicikli, bicikliPont);
                     break;
-                default:
-                    Console.WriteLine("Nincs ilyen menüpont!");
-                    break;
             }
         }
 
         public void bicikliPontAkciok()
         {
+            Console.WriteLine();
             Console.WriteLine("1. Bicikli pont létrehozása");
             Console.WriteLine("2. Bicikli pont törlése");
             Console.WriteLine("3. Bicikli pont keresése");
@@ -196,12 +202,60 @@ namespace Szoftech
             string valasz = Console.ReadLine();
             switch (valasz)
             {
-                
+                case "1":
+                    Console.Write("Bicikli pont neve: ");
+                    string biciklipontneve = Console.ReadLine();
+                    if (string.IsNullOrWhiteSpace(biciklipontneve))
+                    {
+                        Console.WriteLine("Bicikli pont neve nem lehet üres!");
+                        break;
+                    }
+                    BicikliPont bicikliPont = new BicikliPont(biciklipontneve);
+                    bicikliPontLetrehozas(bicikliPont);
+                    break;
+                case "2":
+                    Console.Write("Bicikli pont neve: ");
+                    biciklipontneve = Console.ReadLine();
+                    if (string.IsNullOrWhiteSpace(biciklipontneve))
+                    {
+                        Console.WriteLine("Bicikli pont neve nem lehet üres!");
+                        break;
+                    }
+                    bicikliPont = BicikliPontTarolo.BicikliPontKeresese(biciklipontneve);
+                    bicikliPontTorlese(bicikliPont);
+                    break;
+                case "3":
+                    Console.Write("Bicikli pont neve: ");
+                    biciklipontneve = Console.ReadLine();
+                    if (string.IsNullOrWhiteSpace(biciklipontneve))
+                    {
+                        Console.WriteLine("Bicikli pont neve nem lehet üres!");
+                        break;
+                    }
+                    bicikliPontKereses(biciklipontneve);
+                    break;
+                case "4":
+                    bicikliPontListazas();
+                    break;
+                case "5":
+                    Console.Write("Bicikli pont neve: ");
+                    biciklipontneve = Console.ReadLine();
+                    if (string.IsNullOrWhiteSpace(biciklipontneve))
+                    {
+                        Console.WriteLine("Bicikli pont neve nem lehet üres!");
+                        break;
+                    }
+                    bicikliPont = BicikliPontTarolo.BicikliPontKeresese(biciklipontneve);
+                    Console.Write("Új bicikli pont neve: ");
+                    string ujbiciklipontneve = Console.ReadLine();
+                    bicikliPontModositasa(bicikliPont,ujbiciklipontneve);
+                    break;
             }
         }
 
         public void felhasznaloAkciok()
         {
+            Console.WriteLine();
             Console.WriteLine("1. Felhasználó hozzáadása");
             Console.WriteLine("2. Felhasználó törlése");
             Console.WriteLine("3. Felhasználó keresése");

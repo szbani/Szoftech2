@@ -44,7 +44,7 @@ namespace Szoftech.Tarolok
 
         public static BicikliPont BicikliPontKeresese(string nev)
         {
-            return bicikliPontok.Find(x => x.getNev() == nev);
+            return bicikliPontok.Find(x => x.getNev().ToLower() == nev.ToLower());
         }
 
         public static List<BicikliPont> BicikliPontokListazasa()
@@ -52,19 +52,26 @@ namespace Szoftech.Tarolok
             return bicikliPontok;
         }
 
-        public static void beolvasas()
+        public static void beolvas()
         {
-            StreamReader sr = new StreamReader("biciklipontok.txt");
-            string sor;
-            while (!sr.EndOfStream)
+            try
             {
-                sor = sr.ReadLine();
-                string[] adatok = sor.Split(';');
-                string nev = adatok[0];
-                BicikliPont bicikliPont = new BicikliPont(nev);
-                BicikliPontHozzaadasa(bicikliPont);
+                StreamReader sr = new StreamReader("biciklipontok.txt");
+                string sor;
+                while (!sr.EndOfStream)
+                {
+                    sor = sr.ReadLine();
+                    string[] adatok = sor.Split(';');
+                    string nev = adatok[0];
+                    BicikliPont bicikliPont = new BicikliPont(nev);
+                    BicikliPontHozzaadasa(bicikliPont);
+                }
+                sr.Close();
             }
-            sr.Close();
+            catch (Exception e)
+            {
+
+            }
         }
 
         public static void kiment()
