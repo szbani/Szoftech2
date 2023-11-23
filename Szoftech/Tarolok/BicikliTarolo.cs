@@ -20,12 +20,23 @@ namespace Szoftech.Tarolok
 
         public static void addBicikli(Bicikli bicikli)
         {
-            Biciklik.Add(bicikli);
+            try
+            {
+                Biciklik.Add(bicikli);
+            } catch (Exception e) {
+                Console.WriteLine("Bicikli hozzáadása sikertelen!");
+            }
         }
 
         public static void removeBicikli(Bicikli bicikli)
         {
-            Biciklik.Remove(bicikli);
+            try
+            {
+                Biciklik.Remove(bicikli);
+            } catch (Exception e)
+            {
+                Console.WriteLine("Bicikli eltávolítása sikertelen!");
+            }
         }
 
         public static void beolvas()

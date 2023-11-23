@@ -13,6 +13,7 @@ namespace Szoftech
         private string rendszam;
         private bool hibas;
         private bool kolcsonozve;
+        private string hibaLeiras;
 
         public Bicikli(string marka, string rendszam, bool hibas, bool kolcsonozve)
         {
@@ -36,5 +37,6 @@ namespace Szoftech
         public string Rendszam { get => rendszam; set => rendszam = value; }
         public bool Hibas { get => hibas; set => hibas = value; }
         public bool Kolcsonozve { get => kolcsonozve; set => kolcsonozve = value; }
+        public string HibaLeiras { get => hibaLeiras; set => hibaLeiras = value; }
     }
 }

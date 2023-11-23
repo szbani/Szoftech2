@@ -7,7 +7,7 @@ using Szoftech.Tarolok;
 
 namespace Szoftech
 {
-    internal class Felhasznalo : Felhasznalo
+    internal class KolcsonzoSzemely : Felhasznalo
     {
         protected string FelhasznaloNev;
         protected string Jelszo;
@@ -15,7 +15,7 @@ namespace Szoftech
         protected Kolcsonzes kolcsonzes;
 
 
-        public Felhasznalo(string felhasznaloNev, string jelszo, string nev, FelhasznaloTipus tipus,
+        public KolcsonzoSzemely(string felhasznaloNev, string jelszo, string nev, FelhasznaloTipus tipus,
             Kolcsonzes kolcsonzes = null)
         {
             this.FelhasznaloNev = felhasznaloNev;
@@ -61,6 +61,7 @@ namespace Szoftech
                 if (BicikliTarolo.Biciklik[i].Rendszam == rendszam)
                 {
                     BicikliTarolo.Biciklik[i].Hibas = true;
+                    BicikliTarolo.Biciklik[i].HibaLeiras = hibaLeiras;
                 }
             }
         }

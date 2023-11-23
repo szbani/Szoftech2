@@ -9,21 +9,32 @@ namespace Szoftech
 {
     internal static class FelhasznaloTarolo
     {
-        private static List<Felhasznalo> felhasznalok = new List<Felhasznalo>();
+        private static List<KolcsonzoSzemely> felhasznalok = new List<KolcsonzoSzemely>();
 
-        public static List<Felhasznalo> Felhasznalok
+        public static List<KolcsonzoSzemely> Felhasznalok
         {
             get { return felhasznalok; }
             set { felhasznalok = value; }
         }
         public static void felhasznaloHozzaad(KolcsonzoSzemely felhasznalo)
         {
-            felhasznalok.Add(felhasznalo);
+            try
+            {
+                felhasznalok.Add(felhasznalo);
+            } catch (Exception e) {
+                Console.WriteLine("Felhasználó hozzáadása sikertelen!");
+            }
         }
 
         public static void felhasznaloTorol(KolcsonzoSzemely felhasznalo)
         {
-            felhasznalok.Remove(felhasznalo);
+            try
+            {
+                felhasznalok.Remove(felhasznalo);
+            } catch (Exception e)
+            {
+                Console.WriteLine("Felhasználó törlése sikertelen!");
+            }
         }
 
         public static KolcsonzoSzemely getFelhasznalo(string felhasznaloNev)
@@ -54,7 +65,7 @@ namespace Szoftech
                     string jelszo = adatok[1];
                     string nev = adatok[2];
                     FelhasznaloTipus tipus = (FelhasznaloTipus)Enum.Parse(typeof(FelhasznaloTipus), adatok[3]);
-                    Felhasznalo felhasznalo = null;
+                    KolcsonzoSzemely felhasznalo;
                     if (tipus == FelhasznaloTipus.KolcsonzoSzemely)
                     {
                         felhasznalo = new KolcsonzoSzemely(felhasznaloNev, jelszo, nev, tipus);

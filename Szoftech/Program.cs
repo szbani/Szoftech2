@@ -36,7 +36,7 @@ namespace Szoftech
                         _felhasznalo.menu();
                         // FelhasznaloTarolo.felhasznaloHozzaad(felhasznalo);
                         // FelhasznaloTarolo.kiment();
-                        // List<Felhasznalo> felhasznalok = FelhasznaloTarolo.getFelhasznalok();
+                        // List<KolcsonzoSzemely> felhasznalok = FelhasznaloTarolo.getFelhasznalok();
                         //
                         // if (_felhasznalo is Admin admin)
                         // {

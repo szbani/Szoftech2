@@ -20,12 +20,24 @@ namespace Szoftech.Tarolok
 
         public static void addKolcsonzes(Kolcsonzes kolcsonzes)
         {
-            Kolcsonzesek.Add(kolcsonzes);
+            try
+            {
+                Kolcsonzesek.Add(kolcsonzes);
+            } catch (Exception e)
+            {
+                Console.WriteLine("Kölcsönzés hozzáadása sikertelen!");
+            }
         }
 
         public static void removeKolcsonzes(Kolcsonzes kolcsonzes)
         {
-            Kolcsonzesek.Remove(kolcsonzes);
+            try
+            {
+                Kolcsonzesek.Remove(kolcsonzes);
+            } catch (Exception e)
+            {
+                Console.WriteLine("Kölcsönzés eltávolítása sikertelen!");
+            }
         }
 
         public static void beolvas()

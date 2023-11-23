@@ -20,12 +20,26 @@ namespace Szoftech.Tarolok
 
         public static void BicikliPontHozzaadasa(BicikliPont bicikliPont)
         {
-            bicikliPontok.Add(bicikliPont);
+            try
+            {
+                bicikliPontok.Add(bicikliPont);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Biciklipont hozzáadása sikertelen!");
+            }
+            
         }
 
         public static void BicikliPontTorlese(BicikliPont bicikliPont)
         {
-            bicikliPontok.Remove(bicikliPont);
+            try
+            {
+                bicikliPontok.Remove(bicikliPont);
+            } catch (Exception e)
+            {
+                Console.WriteLine("Biciklipont törlése sikertelen!");
+            }
         }
 
         public static BicikliPont BicikliPontKeresese(string nev)

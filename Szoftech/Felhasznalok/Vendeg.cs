@@ -18,7 +18,7 @@ namespace Szoftech
                   string.IsNullOrWhiteSpace(jelszo)))
             {
                 FelhasznaloTarolo.felhasznaloHozzaad(new KolcsonzoSzemely(felhasznaloNev, jelszo, nev,
-                                       FelhasznaloTipus.KolcsonzoSzemely));
+                    FelhasznaloTipus.KolcsonzoSzemely));
                 FelhasznaloTarolo.kiment();
             }
         }
@@ -28,10 +28,22 @@ namespace Szoftech
             if (!(string.IsNullOrWhiteSpace(felhasznaloNev) && string.IsNullOrWhiteSpace(jelszo)))
             {
                 KolcsonzoSzemely tempFelhasznalo = FelhasznaloTarolo.getFelhasznalo(felhasznaloNev);
+
                 if (tempFelhasznalo != null)
                 {
                     if (tempFelhasznalo.jelszo == jelszo)
                     {
+                        if (tempFelhasznalo.Tipus == FelhasznaloTipus.Admin)
+                        {
+                            tempFelhasznalo = new Admin(tempFelhasznalo.felhasznaloNev, tempFelhasznalo.jelszo,
+                                tempFelhasznalo.nev, tempFelhasznalo.Tipus);
+                        }
+                        else if (tempFelhasznalo.Tipus == FelhasznaloTipus.Karbantarto)
+                        {
+                            tempFelhasznalo = new Karbantarto(tempFelhasznalo.felhasznaloNev, tempFelhasznalo.jelszo,
+                                tempFelhasznalo.nev, tempFelhasznalo.Tipus);
+                        }
+
                         Program._felhasznalo = tempFelhasznalo;
                         Console.WriteLine("Sikeres bejelentkezés!");
                     }
