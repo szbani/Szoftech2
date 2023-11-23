@@ -9,7 +9,8 @@ namespace Szoftech
 {
     internal class Karbantarto : KolcsonzoSzemely
     {
-        public Karbantarto(string felhasznaloNev, string jelszo, string nev,FelhasznaloTipus tipus, Kolcsonzes kolcsonzes = null) : base(felhasznaloNev, jelszo, nev, tipus, kolcsonzes)
+        public Karbantarto(string felhasznaloNev, string jelszo, string nev, FelhasznaloTipus tipus,
+            Kolcsonzes kolcsonzes = null) : base(felhasznaloNev, jelszo, nev, tipus, kolcsonzes)
         {
             Tipus = tipus;
         }
@@ -18,7 +19,6 @@ namespace Szoftech
         {
             foreach (Bicikli element in BicikliTarolo.Biciklik)
             {
-
                 if (element.Rendszam.Contains(rendszam))
                 {
                     Console.Write(element.Rendszam);
@@ -30,16 +30,15 @@ namespace Szoftech
                         Console.Write("Kölcsönözhető, hely: " + element.getBicikliPosition() + "\n");
                 }
 
-                
+
                 //if (element.Rendszam == rendszam)
                 //{
                 //    Console.WriteLine(rendszam);  
                 //}
             }
-            
         }
 
-        public void bicikliHozaadasa(Bicikli bicikli,BicikliPont bicikliPont)
+        public void bicikliHozaadasa(Bicikli bicikli, BicikliPont bicikliPont)
         {
             BicikliTarolo.Biciklik.Add(bicikli);
             bicikliPont.addBicikli(bicikli);
@@ -48,10 +47,12 @@ namespace Szoftech
 
         public void bicikliTorlese(Bicikli bicikli)
         {
-            if ( !(bicikli.getBicikliPosition() == "") ) {
+            if (!(bicikli.getBicikliPosition() == ""))
+            {
                 BicikliTarolo.Biciklik.Remove(bicikli);
                 Console.WriteLine("Sikeres törlés");
-            } else
+            }
+            else
             {
                 Console.WriteLine("Kölcsönzött biciklit nem lehet törölni!");
             }
@@ -59,43 +60,94 @@ namespace Szoftech
 
         public override void menu()
         {
-            Console.WriteLine("1. Kilépés");
-            Console.WriteLine("2. Kijelentkezés");
-            Console.WriteLine("3. Bicikli hiba jelentése");
-            Console.WriteLine("4. Bicikli kölcsönzése");
-            Console.WriteLine("5. Bicikli leadása");
-            Console.WriteLine("6. Bicikli keresése");
-            Console.WriteLine("7. Bicikli hozzáadása");
-            Console.WriteLine("8. Bicikli törlése");
+            Console.WriteLine("1. Bicikli hiba jelentése");
+            Console.WriteLine("2. Bicikli kölcsönzése");
+            Console.WriteLine("3. Bicikli leadása");
+            Console.WriteLine("4. Bicikli keresése");
+            Console.WriteLine("5. Bicikli hozzáadása");
+            Console.WriteLine("6. Bicikli törlése");
+            Console.WriteLine("7. Biciklik listázása");
+            Console.WriteLine("8. Kijelentkezés");
+            Console.WriteLine("9. Kilépés");
             Console.Write("Választás: ");
             string valasz = Console.ReadLine();
 
             switch (valasz)
             {
                 case "1":
-                    Program.kilepes = true;
-                    break;
-                case "2":
-                    kijelentkezes();
-                    break;
-                case "3":
                     Console.Write("Hiba leírása: ");
                     string hibaLeiras = Console.ReadLine();
                     Console.Write("Rendszám: ");
                     string rendszam = Console.ReadLine();
                     bicikliHibaJelentes(hibaLeiras, rendszam);
                     break;
-                case "4":
+                case "2":
                     Console.Write("Rendszám: ");
                     rendszam = Console.ReadLine();
                     Bicikli bicikli = BicikliTarolo.getBicikli(rendszam);
                     bicikliKolcsonzes(bicikli);
                     break;
-                case "5":
+                case "3":
                     Console.Write("Rendszám: ");
                     rendszam = Console.ReadLine();
                     bicikli = BicikliTarolo.getBicikli(rendszam);
                     bicikliLeadasa(bicikli);
+                    break;
+                case "4":
+                    Console.Write("Rendszám: ");
+                    rendszam = Console.ReadLine();
+                    bicikli = BicikliTarolo.getBicikli(rendszam);
+                    bicikliKereses(bicikli.Rendszam);
+                    break;
+                case "5":
+                    Console.Write("Rendszám: ");
+                    rendszam = Console.ReadLine();
+                    if (string.IsNullOrWhiteSpace(rendszam))
+                    {
+                        Console.WriteLine("Rendszám nem lehet üres!");
+                        break;
+                    }
+
+                    Console.Write("Bicikli típusa: ");
+                    string tipus = Console.ReadLine();
+                    if (string.IsNullOrWhiteSpace(tipus))
+                    {
+                        Console.WriteLine("Bicikli típusa nem lehet üres!");
+                        break;
+                    }
+
+                    Console.Write("Bicikli pont: ");
+                    string biciklipontneve = Console.ReadLine();
+                    if (string.IsNullOrWhiteSpace(biciklipontneve))
+                    {
+                        Console.WriteLine("Bicikli pont nem lehet üres!");
+                        break;
+                    }
+
+                    BicikliPont bicikliPont = BicikliPontTarolo.BicikliPontKeresese(biciklipontneve);
+                    bicikli = new Bicikli(rendszam, tipus, false, false);
+                    bicikliHozaadasa(bicikli, bicikliPont);
+                    break;
+                case "6":
+                    Console.Write("Rendszám: ");
+                    rendszam = Console.ReadLine();
+                    if (string.IsNullOrWhiteSpace(rendszam))
+                    {
+                        Console.WriteLine("Rendszám nem lehet üres!");
+                        break;
+                    }
+
+                    bicikli = BicikliTarolo.getBicikli(rendszam);
+                    bicikliTorlese(bicikli);
+                    break;
+                case "7":
+                    osszesBicikliListaz();
+                    break;
+                case "8":
+                    kijelentkezes();
+                    break;
+                case "9":
+                    Program.kilepes = true;
                     break;
                 default:
                     Console.WriteLine("Nincs ilyen menüpont!");

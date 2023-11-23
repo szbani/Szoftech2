@@ -19,12 +19,23 @@ namespace Szoftech
 
         public void addBicikli(Bicikli bicikli)
         {
-            biciklik.Add(bicikli);
+            try
+            {
+                biciklik.Add(bicikli);
+            } catch (Exception e) {
+                Console.WriteLine("Bicikli hozzáadása bicikliponthoz sikertelen!");
+            }
         }
 
         public void removeBicikli(Bicikli bicikli)
         {
-            biciklik.Remove(bicikli);
+            try
+            {
+                biciklik.Remove(bicikli);
+            } catch (Exception e)
+            {
+                Console.WriteLine("Bicikli eltávolítása biciklipontból sikertelen!");
+            }
         }
 
         public Bicikli getBicikli(string rendszam)

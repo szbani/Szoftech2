@@ -63,7 +63,8 @@ namespace Szoftech
         {
             Console.WriteLine("1. Regisztráció");
             Console.WriteLine("2. Bejelentkezés");
-            Console.WriteLine("3. Kilépés");
+            Console.WriteLine("3. Biciklik listázása");
+            Console.WriteLine("4. Kilépés");
             Console.Write("Választás: ");
             string valasz = Console.ReadLine();
 
@@ -86,6 +87,9 @@ namespace Szoftech
                     bejelentkezes(felhasznaloNev, jelszo);
                     break;
                 case "3":
+                    osszesBicikliListaz();
+                    break;
+                case "4":
                     Program.kilepes = true;
                     break;
                 default:

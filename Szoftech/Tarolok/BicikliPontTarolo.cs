@@ -70,7 +70,7 @@ namespace Szoftech.Tarolok
             }
             catch (Exception e)
             {
-
+                Console.WriteLine("Beolvasás sikertelen!");
             }
         }
 

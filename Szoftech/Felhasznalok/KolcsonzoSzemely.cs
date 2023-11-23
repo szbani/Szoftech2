@@ -94,39 +94,46 @@ namespace Szoftech
 
         public override void menu()
         {
-            Console.WriteLine("1. Kilépés");
-            Console.WriteLine("2. Kijelentkezés");
-            Console.WriteLine("3. Bicikli hiba jelentése");
-            Console.WriteLine("4. Bicikli kölcsönzése");
-            Console.WriteLine("5. Bicikli leadása");
+            Console.WriteLine("");
+            Console.WriteLine("1. Bicikli hiba jelentése");
+            Console.WriteLine("2. Bicikli kölcsönzése");
+            Console.WriteLine("3. Bicikli leadása");
+            Console.WriteLine("4. Biciklik listázása");
+            Console.WriteLine("5. Kijelentkezés");
+            Console.WriteLine("6. Kilépés");
+
             string valasz = Console.ReadLine();
 
             switch (valasz)
             {
+
                 case "1":
-                    Program.kilepes = true;
-                    break;
-                case "2":
-                    kijelentkezes();
-                    break;
-                case "3":
                     Console.Write("Hiba leírása: ");
                     string hibaLeiras = Console.ReadLine();
                     Console.Write("Rendszám: ");
                     string rendszam = Console.ReadLine();
                     bicikliHibaJelentes(hibaLeiras, rendszam);
                     break;
-                case "4":
+                case "2":
                     Console.Write("Rendszám: ");
                     rendszam = Console.ReadLine();
                     Bicikli bicikli = BicikliTarolo.getBicikli(rendszam);
                     bicikliKolcsonzes(bicikli);
                     break;
-                case "5":
+                case "3":
                     Console.Write("Rendszám: ");
                     rendszam = Console.ReadLine();
                     bicikli = BicikliTarolo.getBicikli(rendszam);
                     bicikliLeadasa(bicikli);
+                    break;
+                case "4":
+                    osszesBicikliListaz();
+                    break;
+                case "5":
+                    kijelentkezes();
+                    break;
+                case "6":
+                    Program.kilepes = true;
                     break;
                 default:
                     Console.WriteLine("Nincs ilyen menüpont!");

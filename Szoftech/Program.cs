@@ -22,22 +22,19 @@ namespace Szoftech
                 switch (_felhasznalo.Tipus)
                 {
                     case FelhasznaloTipus.Vendeg:
-                        Console.WriteLine("Vendég");
+                        Console.WriteLine("\n\n\nVendég");
                         _felhasznalo.menu();
                         break;
                     case FelhasznaloTipus.KolcsonzoSzemely:
-                        Console.WriteLine("Kölcsönző személy");
+                        Console.WriteLine("\n\n\nKölcsönző személy");
                         _felhasznalo.menu();
                         break;
                     case FelhasznaloTipus.Karbantarto:
-                        Console.WriteLine("Karbantartó");
+                        Console.WriteLine("\n\n\nKarbantartó");
                         _felhasznalo.menu();
                         break;
                     case FelhasznaloTipus.Admin:
-                        Console.WriteLine();
-                        Console.WriteLine();
-                        Console.WriteLine();
-                        Console.WriteLine("Admin");
+                        Console.WriteLine("\n\n\nAdmin");
                         _felhasznalo.menu();
                         // FelhasznaloTarolo.felhasznaloHozzaad(felhasznalo);
                         // FelhasznaloTarolo.kiment();

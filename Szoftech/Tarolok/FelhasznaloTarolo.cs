@@ -85,7 +85,7 @@ namespace Szoftech
             }
             catch (Exception e)
             {
-
+                Console.WriteLine("A beolvasás sikertelen!");
             }
             
         }
