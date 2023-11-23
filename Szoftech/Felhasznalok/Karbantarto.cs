@@ -29,20 +29,23 @@ namespace Szoftech
                         //Console.Write("Kölcsönözhető");
                         Console.Write("Kölcsönözhető, hely: " + element.getBicikliPosition() + "\n");
                 }
-
-
-                //if (element.Rendszam == rendszam)
-                //{
-                //    Console.WriteLine(rendszam);  
-                //}
             }
         }
 
         public void bicikliHozaadasa(Bicikli bicikli, BicikliPont bicikliPont)
         {
-            BicikliTarolo.Biciklik.Add(bicikli);
-            bicikliPont.addBicikli(bicikli);
-            Console.WriteLine("Sikeres hozzáadás");
+            try
+            {
+                BicikliTarolo.Biciklik.Add(bicikli);
+                bicikliPont.addBicikli(bicikli);
+                BicikliTarolo.kiment();
+                BicikliPontTarolo.kiment();
+
+                Console.WriteLine("Sikeres hozzáadás");
+            } catch (Exception e)
+            {
+                Console.WriteLine("Sikertelen hozzáadás");
+            }
         }
 
         public void bicikliTorlese(Bicikli bicikli)
@@ -56,6 +59,8 @@ namespace Szoftech
             {
                 Console.WriteLine("Kölcsönzött biciklit nem lehet törölni!");
             }
+            BicikliTarolo.kiment();
+            BicikliPontTarolo.kiment();
         }
 
         public override void menu()
@@ -115,6 +120,11 @@ namespace Szoftech
                         Console.WriteLine("Bicikli típusa nem lehet üres!");
                         break;
                     }
+                    Console.WriteLine("\nBicikli pontok: ");
+
+                    for (int i = 0; i < BicikliPontTarolo.BicikliPontok.Count; i++)
+                        Console.WriteLine($"{BicikliPontTarolo.BicikliPontok[i].getNev()}");
+                    Console.WriteLine("\n");
 
                     Console.Write("Bicikli pont: ");
                     string biciklipontneve = Console.ReadLine();
@@ -125,6 +135,11 @@ namespace Szoftech
                     }
 
                     BicikliPont bicikliPont = BicikliPontTarolo.BicikliPontKeresese(biciklipontneve);
+                    if (bicikliPont == null)
+                    {
+                        Console.WriteLine("Nincs ilyen bicikli pont");
+                        break;
+                    }
                     bicikli = new Bicikli(rendszam, tipus, false, false);
                     bicikliHozaadasa(bicikli, bicikliPont);
                     break;

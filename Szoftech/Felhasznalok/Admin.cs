@@ -18,16 +18,19 @@ namespace Szoftech
         public void felhasznaloHozzaadasa(KolcsonzoSzemely felhasznalo)
         {
             FelhasznaloTarolo.felhasznaloHozzaad(felhasznalo);
+            FelhasznaloTarolo.kiment();
         }
 
         public void felhasznaloTorlese(KolcsonzoSzemely felhasznalo)
         {
             FelhasznaloTarolo.felhasznaloTorol(felhasznalo);
+            FelhasznaloTarolo.kiment();
         }
 
         public void felhasznaloModositasa(Felhasznalo felhasznalo,Felhasznalo ujFelhasznalo)
         {
             felhasznalo = ujFelhasznalo;
+            FelhasznaloTarolo.kiment();
         }
 
         public void felhasznaloKereses(string nev)
@@ -51,6 +54,7 @@ namespace Szoftech
                 karbantarto.Tipus = FelhasznaloTipus.Karbantarto;
             else
                 karbantarto.Tipus = FelhasznaloTipus.KolcsonzoSzemely;
+            FelhasznaloTarolo.kiment();
         }
 
         public void bicikliPontLetrehozas(BicikliPont bicikliPont)
@@ -68,6 +72,7 @@ namespace Szoftech
         public void bicikliPontModositasa(BicikliPont bicikliPont,string nev)
         {
             bicikliPont.setNev(nev);
+            BicikliPontTarolo.kiment();
         }
 
         public void bicikliPontKereses(string cim)
@@ -177,6 +182,10 @@ namespace Szoftech
                         Console.WriteLine("Bicikli típusa nem lehet üres!");
                         break;
                     }
+                    Console.WriteLine("\nBicikli pontok: ");
+
+                    bicikliPontListazas();
+
                     Console.Write("Bicikli pont: ");
                     string biciklipontneve = Console.ReadLine();
                     if (string.IsNullOrWhiteSpace(biciklipontneve))
@@ -184,7 +193,13 @@ namespace Szoftech
                         Console.WriteLine("Bicikli pont nem lehet üres!");
                         break;
                     }
+
                     BicikliPont bicikliPont = BicikliPontTarolo.BicikliPontKeresese(biciklipontneve);
+                    if (bicikliPont == null)
+                    {
+                        Console.WriteLine("Nincs ilyen bicikli pont");
+                        break;
+                    }
                     bicikli = new Bicikli(rendszam, tipus, false, false);
                     bicikliHozaadasa(bicikli, bicikliPont);
                     break;
