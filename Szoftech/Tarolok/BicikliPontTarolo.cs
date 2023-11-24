@@ -89,7 +89,7 @@ namespace Szoftech.Tarolok
             }
             catch (Exception e)
             {
-                Console.WriteLine("Sikertelen beolvasás");
+                Console.WriteLine("Biciklipontok beolvasása sikertelen!");
             }
         }
 
@@ -117,8 +117,7 @@ namespace Szoftech.Tarolok
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                throw;
+                Console.WriteLine("Biciklipontok kimentése sikertelen!");
             }
         }
     }

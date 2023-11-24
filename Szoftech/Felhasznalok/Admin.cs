@@ -201,6 +201,11 @@ namespace Szoftech
                     bicikliPont = BicikliPontTarolo.BicikliPontKeresese(biciklipontneve);
                     Console.Write("Új bicikli pont neve: ");
                     string ujbiciklipontneve = Console.ReadLine();
+                    if (string.IsNullOrWhiteSpace(ujbiciklipontneve))
+                    {
+                        Console.WriteLine("Bicikli pont neve nem lehet üres!");
+                        break;
+                    }
                     bicikliPontModositasa(bicikliPont, ujbiciklipontneve);
                     break;
                 case "6":

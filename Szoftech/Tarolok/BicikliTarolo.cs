@@ -60,19 +60,26 @@ namespace Szoftech.Tarolok
             }
             catch (Exception e)
             {
+                Console.WriteLine("Biciklik beolvasása sikertelen!");
             }
             
         }
 
         public static void kiment()
         {
-            StreamWriter sw = new StreamWriter("biciklitarolo.txt");
-
-            foreach (var bicikli in biciklik)
+            try
             {
-                sw.WriteLine(bicikli.Marka + ";" + bicikli.Rendszam + ";" + bicikli.Hibas + ";" + bicikli.Kolcsonozve);
+                StreamWriter sw = new StreamWriter("biciklitarolo.txt");
+
+                foreach (var bicikli in biciklik)
+                {
+                    sw.WriteLine(bicikli.Marka + ";" + bicikli.Rendszam + ";" + bicikli.Hibas + ";" + bicikli.Kolcsonozve);
+                }
+                sw.Close();
+            } catch (Exception e)
+            {
+                Console.WriteLine("Biciklik kimentése sikertelen!"); 
             }
-            sw.Close();
         }
     }
 }

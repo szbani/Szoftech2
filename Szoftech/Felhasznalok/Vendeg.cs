@@ -17,9 +17,33 @@ namespace Szoftech
             if (!(string.IsNullOrWhiteSpace(felhasznaloNev) && string.IsNullOrWhiteSpace(nev) &&
                   string.IsNullOrWhiteSpace(jelszo)))
             {
-                FelhasznaloTarolo.felhasznaloHozzaad(new KolcsonzoSzemely(felhasznaloNev, jelszo, nev,
-                    FelhasznaloTipus.KolcsonzoSzemely));
-                FelhasznaloTarolo.kiment();
+                bool adminExists = false;
+                foreach (var element in FelhasznaloTarolo.Felhasznalok)
+                {
+                    if (element.Tipus == FelhasznaloTipus.Admin) adminExists = true;
+                }
+                if (!adminExists)
+                {
+                    Console.WriteLine("Nincs admin felhasználó. Létrehoz egyet? (I/n)");
+                    string valasz = Console.ReadLine();
+                    if (valasz.ToLower() == "i" || valasz == "")
+                    {
+                        FelhasznaloTarolo.felhasznaloHozzaad(new KolcsonzoSzemely(felhasznaloNev, jelszo, nev,
+                            FelhasznaloTipus.Admin));
+                        FelhasznaloTarolo.kiment();
+
+                        Console.WriteLine("Admin felhasználó létrehozva");
+                        return;
+                    }
+                }
+                    FelhasznaloTarolo.felhasznaloHozzaad(new KolcsonzoSzemely(felhasznaloNev, jelszo, nev,
+                        FelhasznaloTipus.KolcsonzoSzemely));
+                    FelhasznaloTarolo.kiment();
+
+                    Console.WriteLine("Felhasználó létrehozva");
+            } else
+            {
+                Console.WriteLine("Nem történt regisztrálás!");
             }
         }
 

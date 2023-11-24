@@ -196,12 +196,12 @@ namespace Szoftech
                         break;
                     }
 
-                    Console.WriteLine("Leadod a biciklid\n1. Igen\n2. Nem");
+                    Console.WriteLine("Leadod a biciklid?\n1. Igen\n2. Nem");
                     string lead = Console.ReadLine();
                     if (lead == "1")
                     {
                         BicikliPontTarolo.BicikliPontokListazasa();
-                        Console.WriteLine("BicikliPont neve:");
+                        Console.WriteLine("BicikliPont neve: ");
                         string bicikliPont = Console.ReadLine();
                         BicikliPont bp = BicikliPontTarolo.BicikliPontKeresese(bicikliPont);
                         if (bp == null)

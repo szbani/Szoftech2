@@ -64,18 +64,25 @@ namespace Szoftech.Tarolok
             }
             catch (Exception e)
             {
+                Console.WriteLine("Kölcsönzések beolvasása sikertelen!");
             }
         }
 
         public static void kiment()
         {
-            StreamWriter sw = new StreamWriter("kolcsonzestarolo.txt");
-
-            foreach (var kolcsonzes in kolcsonzesek)
+            try
             {
-                sw.WriteLine(kolcsonzes.getBicikli().Rendszam + ";" + kolcsonzes.getKolcsonzesIdopont() + ";" + kolcsonzes.getFelhasznalo());
+                StreamWriter sw = new StreamWriter("kolcsonzestarolo.txt");
+
+                foreach (var kolcsonzes in kolcsonzesek)
+                {
+                    sw.WriteLine(kolcsonzes.getBicikli().Rendszam + ";" + kolcsonzes.getKolcsonzesIdopont() + ";" + kolcsonzes.getFelhasznalo());
+                }
+                sw.Close();
+            } catch (Exception e)
+            {
+                Console.WriteLine("Kölcsönzések kimentése sikertelen!"); 
             }
-            sw.Close();
         }
     }
 }

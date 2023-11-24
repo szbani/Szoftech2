@@ -44,12 +44,18 @@ namespace Szoftech
 
         public static void kiment()
         {
-            StreamWriter sw = new StreamWriter("felhasznalok.txt");
-            foreach (var felhasznalo in felhasznalok)
+            try
             {
-                sw.WriteLine(felhasznalo.felhasznaloNev + ";" + felhasznalo.jelszo + ";" + felhasznalo.nev + ";" + felhasznalo.Tipus);
+                StreamWriter sw = new StreamWriter("felhasznalok.txt");
+                foreach (var felhasznalo in felhasznalok)
+                {
+                    sw.WriteLine(felhasznalo.felhasznaloNev + ";" + felhasznalo.jelszo + ";" + felhasznalo.nev + ";" + felhasznalo.Tipus);
+                }
+                sw.Close();
+            } catch (Exception e)
+            {
+                Console.WriteLine("Felhasználók beolvasása sikertelen!");
             }
-            sw.Close();
         }
 
         public static void beolvas()
@@ -85,7 +91,7 @@ namespace Szoftech
             }
             catch (Exception e)
             {
-                Console.WriteLine("A beolvasás sikertelen!");
+                Console.WriteLine("Felhasználók beolvasása sikertelen!");
             }
             
         }
