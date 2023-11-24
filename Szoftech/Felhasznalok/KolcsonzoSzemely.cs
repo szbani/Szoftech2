@@ -89,7 +89,7 @@ namespace Szoftech
                 {
                     bicikli.Kolcsonozve = false;
                     bicikliPont.addBicikli(bicikli);
-                    //KolcsonzesTarolo.kiment();
+                    KolcsonzesTarolo.kiment();
                 }
             }
         }
