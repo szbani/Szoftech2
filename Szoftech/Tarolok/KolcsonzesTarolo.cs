@@ -54,9 +54,11 @@ namespace Szoftech.Tarolok
                     string bicikli = adatok[0];
                     DateTime kezdet = Convert.ToDateTime(adatok[1]);
                     string felhasznalo = adatok[2];
+                    Kolcsonzes kolcsonzes = new Kolcsonzes(BicikliTarolo.getBicikli(bicikli), kezdet, felhasznalo);
 
-                    Kolcsonzesek.Add(new Kolcsonzes(BicikliTarolo.getBicikli(bicikli), kezdet, felhasznalo));
-
+                    Kolcsonzesek.Add(kolcsonzes);
+                    FelhasznaloTarolo.getFelhasznalo(felhasznalo).kkolcsonzes = kolcsonzes;
+                    Console.WriteLine("Kölcsönzés hozzáadva!");
                 }
                 sr.Close();
             }
@@ -71,7 +73,7 @@ namespace Szoftech.Tarolok
 
             foreach (var kolcsonzes in kolcsonzesek)
             {
-                sw.WriteLine(kolcsonzes.getBicikli() + ";" + kolcsonzes.getKolcsonzesIdopont() + ";" + kolcsonzes.getFelhasznalo());
+                sw.WriteLine(kolcsonzes.getBicikli().Rendszam + ";" + kolcsonzes.getKolcsonzesIdopont() + ";" + kolcsonzes.getFelhasznalo());
             }
             sw.Close();
         }

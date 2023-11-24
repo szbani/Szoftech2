@@ -27,7 +27,7 @@ namespace Szoftech
             FelhasznaloTarolo.kiment();
         }
 
-        public void felhasznaloModositasa(Felhasznalo felhasznalo,Felhasznalo ujFelhasznalo)
+        public void felhasznaloModositasa(Felhasznalo felhasznalo, Felhasznalo ujFelhasznalo)
         {
             felhasznalo = ujFelhasznalo;
             FelhasznaloTarolo.kiment();
@@ -45,10 +45,11 @@ namespace Szoftech
         public void felhasznaloListazas()
         {
             for (int i = 0; i < FelhasznaloTarolo.Felhasznalok.Count; i++)
-                Console.WriteLine($"{FelhasznaloTarolo.Felhasznalok[i].felhasznaloNev} {FelhasznaloTarolo.Felhasznalok[i].jelszo} {FelhasznaloTarolo.Felhasznalok[i].nev}");
+                Console.WriteLine(
+                    $"{FelhasznaloTarolo.Felhasznalok[i].felhasznaloNev} {FelhasznaloTarolo.Felhasznalok[i].jelszo} {FelhasznaloTarolo.Felhasznalok[i].nev}");
         }
 
-        public void karbantartoJogokKezelese(KolcsonzoSzemely karbantarto,bool tipus)
+        public void karbantartoJogokKezelese(KolcsonzoSzemely karbantarto, bool tipus)
         {
             if (tipus)
                 karbantarto.Tipus = FelhasznaloTipus.Karbantarto;
@@ -69,7 +70,7 @@ namespace Szoftech
             BicikliPontTarolo.kiment();
         }
 
-        public void bicikliPontModositasa(BicikliPont bicikliPont,string nev)
+        public void bicikliPontModositasa(BicikliPont bicikliPont, string nev)
         {
             bicikliPont.setNev(nev);
             BicikliPontTarolo.kiment();
@@ -86,37 +87,45 @@ namespace Szoftech
 
         public void bicikliPontListazas()
         {
-            for (int i = 0; i < BicikliPontTarolo.BicikliPontok.Count; i++)
-                Console.WriteLine($"{BicikliPontTarolo.BicikliPontok[i].getNev()}");
+            BicikliPontTarolo.BicikliPontokListazasa();
         }
 
         public override void menu()
         {
             Console.WriteLine();
-            Console.WriteLine("1. Bicikli akciok");
-            Console.WriteLine("2. Felhasznalo akciok");
+            Console.WriteLine("1. Kölcsönző menü");
+            Console.WriteLine("2. Karbantartó menü");
             Console.WriteLine("3. Bicikli pont akciok");
-            Console.WriteLine("4. Kijelentkezés");
-            Console.WriteLine("5. Kilépés");
+            Console.WriteLine("4. Felhasználó akciók");
+            Console.WriteLine("5. Kijelentkezés");
+            Console.WriteLine("6. Kilépés");
 
             Console.Write("Választás: ");
             string valasz = Console.ReadLine();
+            Program.menuVissza = false;
 
             switch (valasz)
             {
                 case "1":
-                    bicikliAkciok();
+                    while (!(Program.menuVissza))
+                        kolcsonzoMenu();
                     break;
                 case "2":
-                    felhasznaloAkciok();
+                    while (!(Program.menuVissza))
+                        karbantartoMenu();
                     break;
                 case "3":
-                    bicikliPontAkciok();
+                    while (!(Program.menuVissza))
+                        bicikliPontAkciok();
                     break;
                 case "4":
-                    kijelentkezes();
+                    while (!(Program.menuVissza))
+                        felhasznaloAkciok();
                     break;
                 case "5":
+                    kijelentkezes();
+                    break;
+                case "6":
                     Program.kilepes = true;
                     break;
                 default:
@@ -125,110 +134,17 @@ namespace Szoftech
             }
         }
 
-        public void bicikliAkciok()
-        {
-            Console.WriteLine();
-            Console.WriteLine("1. Bicikli hiba jelentése");
-            Console.WriteLine("2. Bicikli kölcsönzése");
-            Console.WriteLine("3. Bicikli leadása");
-            Console.WriteLine("4. Bicikli keresése");
-            Console.WriteLine("5. Bicikli hozzáadása");
-            Console.WriteLine("6. Bicikli törlése");
-            Console.WriteLine("7. Biciklik listázása");
-            Console.WriteLine("Visszához hagyd üresen.");
-            Console.Write("Választás: ");
-            string valasz = Console.ReadLine();
-            Console.WriteLine();
-            switch (valasz)
-            {
-                case "1":
-                    Console.Write("Hiba leírása: ");
-                    string hibaLeiras = Console.ReadLine();
-                    Console.Write("Rendszám: ");
-                    string rendszam = Console.ReadLine();
-                    bicikliHibaJelentes(hibaLeiras, rendszam);
-                    break;
-                case "2":
-                    Console.Write("Rendszám: ");
-                    rendszam = Console.ReadLine();
-                    Bicikli bicikli = BicikliTarolo.getBicikli(rendszam);
-                    bicikliKolcsonzes(bicikli);
-                    break;
-                case "3":
-                    Console.Write("Rendszám: ");
-                    rendszam = Console.ReadLine();
-                    bicikli = BicikliTarolo.getBicikli(rendszam);
-                    bicikliLeadasa(bicikli);
-                    break;
-                case "4":
-                    Console.Write("Rendszám: ");
-                    rendszam = Console.ReadLine();
-                    bicikli = BicikliTarolo.getBicikli(rendszam);
-                    bicikliKereses(bicikli.Rendszam);
-                    break;
-                case "5":
-                    Console.Write("Rendszám: ");
-                    rendszam = Console.ReadLine();
-                    if (string.IsNullOrWhiteSpace(rendszam))
-                    {
-                        Console.WriteLine("Rendszám nem lehet üres!");
-                        break;
-                    }
-
-                    Console.Write("Bicikli típusa: ");
-                    string tipus = Console.ReadLine();
-                    if (string.IsNullOrWhiteSpace(tipus))
-                    {
-                        Console.WriteLine("Bicikli típusa nem lehet üres!");
-                        break;
-                    }
-                    Console.WriteLine("\nBicikli pontok: ");
-
-                    bicikliPontListazas();
-
-                    Console.Write("Bicikli pont: ");
-                    string biciklipontneve = Console.ReadLine();
-                    if (string.IsNullOrWhiteSpace(biciklipontneve))
-                    {
-                        Console.WriteLine("Bicikli pont nem lehet üres!");
-                        break;
-                    }
-
-                    BicikliPont bicikliPont = BicikliPontTarolo.BicikliPontKeresese(biciklipontneve);
-                    if (bicikliPont == null)
-                    {
-                        Console.WriteLine("Nincs ilyen bicikli pont");
-                        break;
-                    }
-                    bicikli = new Bicikli(rendszam, tipus, false, false);
-                    bicikliHozaadasa(bicikli, bicikliPont);
-                    break;
-                case "6":
-                    Console.Write("Rendszám: ");
-                    rendszam = Console.ReadLine();
-                    if (string.IsNullOrWhiteSpace(rendszam))
-                    {
-                        Console.WriteLine("Rendszám nem lehet üres!");
-                        break;
-                    }
-                    bicikli = BicikliTarolo.getBicikli(rendszam);
-                    bicikliTorlese(bicikli);
-                    break;
-                case "7":
-                    osszesBicikliListaz();
-                    break;
-            }
-        }
-
         public void bicikliPontAkciok()
         {
-            Console.WriteLine();
+            Console.WriteLine("\nBicikli pont akciók");
             Console.WriteLine("1. Bicikli pont létrehozása");
             Console.WriteLine("2. Bicikli pont törlése");
             Console.WriteLine("3. Bicikli pont keresése");
             Console.WriteLine("4. Bicikli pontok listázása");
             Console.WriteLine("5. Bicikli pont módosítása");
-            Console.WriteLine("Visszához hagyd üresen.");
+            Console.WriteLine("6. Kijelentkezés");
+            Console.WriteLine("7. Kilépés");
+            Console.WriteLine("8. Vissza");
             Console.Write("Választás: ");
             string valasz = Console.ReadLine();
             Console.WriteLine();
@@ -242,6 +158,7 @@ namespace Szoftech
                         Console.WriteLine("Bicikli pont neve nem lehet üres!");
                         break;
                     }
+
                     BicikliPont bicikliPont = new BicikliPont(biciklipontneve);
                     bicikliPontLetrehozas(bicikliPont);
                     break;
@@ -253,6 +170,7 @@ namespace Szoftech
                         Console.WriteLine("Bicikli pont neve nem lehet üres!");
                         break;
                     }
+
                     bicikliPont = BicikliPontTarolo.BicikliPontKeresese(biciklipontneve);
                     bicikliPontTorlese(bicikliPont);
                     break;
@@ -264,12 +182,14 @@ namespace Szoftech
                         Console.WriteLine("Bicikli pont neve nem lehet üres!");
                         break;
                     }
+
                     bicikliPontKereses(biciklipontneve);
                     break;
                 case "4":
                     bicikliPontListazas();
                     break;
                 case "5":
+                    bicikliPontListazas();
                     Console.Write("Bicikli pont neve: ");
                     biciklipontneve = Console.ReadLine();
                     if (string.IsNullOrWhiteSpace(biciklipontneve))
@@ -277,10 +197,25 @@ namespace Szoftech
                         Console.WriteLine("Bicikli pont neve nem lehet üres!");
                         break;
                     }
+
                     bicikliPont = BicikliPontTarolo.BicikliPontKeresese(biciklipontneve);
                     Console.Write("Új bicikli pont neve: ");
                     string ujbiciklipontneve = Console.ReadLine();
-                    bicikliPontModositasa(bicikliPont,ujbiciklipontneve);
+                    bicikliPontModositasa(bicikliPont, ujbiciklipontneve);
+                    break;
+                case "6":
+                    Program.menuVissza = true;
+                    kijelentkezes();
+                    break;
+                case "7":
+                    Program.menuVissza = true;
+                    Program.kilepes = true;
+                    break;
+                case "8":
+                    Program.menuVissza = true;
+                    break;
+                default:
+                    Console.WriteLine("Nincs ilyen menüpont!");
                     break;
             }
         }
@@ -288,18 +223,20 @@ namespace Szoftech
         public void felhasznaloAkciok()
         {
             KolcsonzoSzemely felhasznalo;
-            Console.WriteLine();
+            Console.WriteLine("\nFelhasználó akciók");
             Console.WriteLine("1. Felhasználó hozzáadása");
             Console.WriteLine("2. Felhasználó törlése");
             Console.WriteLine("3. Felhasználó keresése");
             Console.WriteLine("4. Felhasználók listázása");
             Console.WriteLine("5. Felhasználó módosítása");
             Console.WriteLine("6. Karbantartó jogok kezelése");
-            Console.WriteLine("Visszához hagyd üresen.");
+            Console.WriteLine("7. Kijelentkezés");
+            Console.WriteLine("8. Kilépés");
+            Console.WriteLine("9. Vissza");
             Console.Write("Választás: ");
             string valasz = Console.ReadLine();
             Console.WriteLine();
-            switch(valasz)
+            switch (valasz)
             {
                 case "1":
                     Console.Write("Felhasználó neve: ");
@@ -309,6 +246,7 @@ namespace Szoftech
                         Console.WriteLine("Felhasználó neve nem lehet üres!");
                         break;
                     }
+
                     Console.Write("Felhasználó jelszava: ");
                     string jelszo = Console.ReadLine();
                     if (string.IsNullOrWhiteSpace(jelszo))
@@ -316,6 +254,7 @@ namespace Szoftech
                         Console.WriteLine("Felhasználó jelszava nem lehet üres!");
                         break;
                     }
+
                     Console.Write("Felhasználó felhasználóneve: ");
                     string felhasznalonev = Console.ReadLine();
                     if (string.IsNullOrWhiteSpace(felhasznalonev))
@@ -323,6 +262,7 @@ namespace Szoftech
                         Console.WriteLine("Felhasználó felhasználóneve nem lehet üres!");
                         break;
                     }
+
                     Console.Write("Felhasználó típusa: ");
                     string tipus = Console.ReadLine();
                     if (string.IsNullOrWhiteSpace(tipus))
@@ -330,7 +270,9 @@ namespace Szoftech
                         Console.WriteLine("Felhasználó típusa nem lehet üres!");
                         break;
                     }
-                    felhasznalo = new KolcsonzoSzemely(felhasznalonev, jelszo, nev, (FelhasznaloTipus)Enum.Parse(typeof(FelhasznaloTipus), tipus));
+
+                    felhasznalo = new KolcsonzoSzemely(felhasznalonev, jelszo, nev,
+                        (FelhasznaloTipus)Enum.Parse(typeof(FelhasznaloTipus), tipus));
                     felhasznaloHozzaadasa(felhasznalo);
                     break;
                 case "2":
@@ -341,6 +283,7 @@ namespace Szoftech
                         Console.WriteLine("Felhasználó neve nem lehet üres!");
                         break;
                     }
+
                     felhasznalo = FelhasznaloTarolo.getFelhasznalo(nev);
                     felhasznaloTorlese(felhasznalo);
                     break;
@@ -352,6 +295,7 @@ namespace Szoftech
                         Console.WriteLine("Felhasználó neve nem lehet üres!");
                         break;
                     }
+
                     felhasznaloKereses(nev);
                     break;
                 case "4":
@@ -365,6 +309,7 @@ namespace Szoftech
                         Console.WriteLine("Felhasználó neve nem lehet üres!");
                         break;
                     }
+
                     felhasznalo = FelhasznaloTarolo.getFelhasznalo(nev);
                     Console.Write("Új felhasználó neve: ");
                     string ujnev = Console.ReadLine();
@@ -373,6 +318,7 @@ namespace Szoftech
                         Console.WriteLine("Felhasználó neve nem lehet üres!");
                         break;
                     }
+
                     Console.Write("Új felhasználó jelszava: ");
                     string ujjelszo = Console.ReadLine();
                     if (string.IsNullOrWhiteSpace(ujjelszo))
@@ -380,6 +326,7 @@ namespace Szoftech
                         Console.WriteLine("Felhasználó jelszava nem lehet üres!");
                         break;
                     }
+
                     Console.Write("Új felhasználó felhasználóneve: ");
                     string ujfelhasznalonev = Console.ReadLine();
                     if (string.IsNullOrWhiteSpace(ujfelhasznalonev))
@@ -387,6 +334,7 @@ namespace Szoftech
                         Console.WriteLine("Felhasználó felhasználóneve nem lehet üres!");
                         break;
                     }
+
                     Console.Write("Új felhasználó típusa: ");
                     string ujtipus = Console.ReadLine();
                     if (string.IsNullOrWhiteSpace(ujtipus))
@@ -394,8 +342,10 @@ namespace Szoftech
                         Console.WriteLine("Felhasználó típusa nem lehet üres!");
                         break;
                     }
-                    Felhasznalo ujfelhasznalo = new KolcsonzoSzemely(ujfelhasznalonev, ujjelszo, ujnev, (FelhasznaloTipus)Enum.Parse(typeof(FelhasznaloTipus), ujtipus));
-                    felhasznaloModositasa(felhasznalo,ujfelhasznalo);
+
+                    Felhasznalo ujfelhasznalo = new KolcsonzoSzemely(ujfelhasznalonev, ujjelszo, ujnev,
+                        (FelhasznaloTipus)Enum.Parse(typeof(FelhasznaloTipus), ujtipus));
+                    felhasznaloModositasa(felhasznalo, ujfelhasznalo);
                     Console.WriteLine("Sikeres módosítás!");
                     break;
                 case "6":
@@ -406,8 +356,9 @@ namespace Szoftech
                         Console.WriteLine("Felhasználó neve nem lehet üres!");
                         break;
                     }
+
                     felhasznalo = FelhasznaloTarolo.getFelhasznalo(nev);
-                    Console.Write("Karbantartó jogok: ");
+                    Console.Write("Karbantartó jogosultságok: ");
                     Console.WriteLine("1. Igen");
                     Console.WriteLine("2. Nem");
                     Console.Write("Választás: ");
@@ -425,8 +376,23 @@ namespace Szoftech
                             Console.WriteLine("Nincs ilyen menüpont!");
                             break;
                     }
-                    karbantartoJogokKezelese(felhasznalo,karbantarto);
+
+                    karbantartoJogokKezelese(felhasznalo, karbantarto);
                     Console.WriteLine("Sikeres módosítás!");
+                    break;
+                case "7":
+                    Program.menuVissza = true;
+                    kijelentkezes();
+                    break;
+                case "8":
+                    Program.menuVissza = true;
+                    Program.kilepes = true;
+                    break;
+                case "9":
+                    Program.menuVissza = true;
+                    break;
+                default:
+                    Console.WriteLine("Nincs ilyen menüpont!");
                     break;
             }
         }

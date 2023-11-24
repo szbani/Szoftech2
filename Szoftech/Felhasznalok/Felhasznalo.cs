@@ -23,11 +23,16 @@ namespace Szoftech
 
         public void osszesBicikliListaz()
         {
-            for(int i = 0; i < BicikliTarolo.Biciklik.Count; i++)
-                Console.WriteLine($"{BicikliTarolo.Biciklik[i].Marka} {BicikliTarolo.Biciklik[i].Rendszam} {BicikliTarolo.Biciklik[i].Hibas} {BicikliTarolo.Biciklik[i].Kolcsonozve}");
+            Console.WriteLine("\nÖsszes bicikli listázása");
+            Console.WriteLine("Rendszám\tKölcsönözve\tBicikli pont");
+            for (int i = 0; i < BicikliTarolo.Biciklik.Count; i++)
+            {
+                if (!BicikliTarolo.Biciklik[i].Hibas)
+                {
+                    Console.WriteLine(BicikliTarolo.Biciklik[i].Rendszam + "\t\t" + BicikliTarolo.Biciklik[i].Kolcsonozve + "\t\t" + BicikliTarolo.Biciklik[i].getBicikliPosition());
+                }
+            }
         }
-
-
 
     }
 }

@@ -11,6 +11,8 @@ namespace Szoftech
     {
         public static Felhasznalo _felhasznalo = new Vendeg();
         public static bool kilepes = false;
+        public static bool menuVissza = false;
+
 
         static void Main(string[] args)
         {
@@ -18,7 +20,6 @@ namespace Szoftech
             BicikliTarolo.beolvas();
             BicikliPontTarolo.beolvas();
             KolcsonzesTarolo.beolvas();
-            // _felhasznalo = new Admin("admin", "admin", "admin", FelhasznaloTipus.Admin);
             while (kilepes == false)
             {
                 switch (_felhasznalo.Tipus)
@@ -38,20 +39,6 @@ namespace Szoftech
                     case FelhasznaloTipus.Admin:
                         Console.WriteLine("\n\n\nAdmin");
                         _felhasznalo.menu();
-                        // FelhasznaloTarolo.felhasznaloHozzaad(felhasznalo);
-                        // FelhasznaloTarolo.kiment();
-                        // List<KolcsonzoSzemely> felhasznalok = FelhasznaloTarolo.getFelhasznalok();
-                        //
-                        // if (_felhasznalo is Admin admin)
-                        // {
-                        //     admin.felhasznaloListazas();
-                        // }
-                        //
-                        // Console.WriteLine(_felhasznalo.GetType());
-                        // foreach (var item in felhasznalok)
-                        // {
-                        //     Console.WriteLine(item.felhasznaloNev + " " + item.jelszo + " " + item.Tipus);
-                        // }
                         break;
                     default:
                         break;

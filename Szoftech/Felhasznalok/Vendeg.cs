@@ -36,12 +36,12 @@ namespace Szoftech
                         if (tempFelhasznalo.Tipus == FelhasznaloTipus.Admin)
                         {
                             tempFelhasznalo = new Admin(tempFelhasznalo.felhasznaloNev, tempFelhasznalo.jelszo,
-                                tempFelhasznalo.nev, tempFelhasznalo.Tipus);
+                                tempFelhasznalo.nev, tempFelhasznalo.Tipus,tempFelhasznalo.kkolcsonzes);
                         }
                         else if (tempFelhasznalo.Tipus == FelhasznaloTipus.Karbantarto)
                         {
                             tempFelhasznalo = new Karbantarto(tempFelhasznalo.felhasznaloNev, tempFelhasznalo.jelszo,
-                                tempFelhasznalo.nev, tempFelhasznalo.Tipus);
+                                tempFelhasznalo.nev, tempFelhasznalo.Tipus,tempFelhasznalo.kkolcsonzes);
                         }
 
                         Program._felhasznalo = tempFelhasznalo;

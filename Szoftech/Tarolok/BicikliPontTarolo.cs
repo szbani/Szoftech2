@@ -22,12 +22,13 @@ namespace Szoftech.Tarolok
         {
             try
             {
-                if (bicikliPontok.Contains(bicikliPont)) throw new Exception("Már létezik ilyen biciklipont!");
+                if (BicikliPontKeresese(bicikliPont.getNev()) != null)
+                    throw new Exception("Már létezik ilyen biciklipont!");
                 bicikliPontok.Add(bicikliPont);
             }
             catch (Exception e)
             {
-                Console.WriteLine("Biciklipont hozzáadása sikertelen!");
+                Console.WriteLine("Biciklipont hozzáadása sikertelen!\n" + e);
             }
         }
 
@@ -48,9 +49,13 @@ namespace Szoftech.Tarolok
             return bicikliPontok.Find(x => x.getNev().ToLower() == nev.ToLower());
         }
 
-        public static List<BicikliPont> BicikliPontokListazasa()
+        public static void BicikliPontokListazasa()
         {
-            return bicikliPontok;
+            Console.WriteLine("\nBicikli pontok: ");
+
+            for (int i = 0; i < BicikliPontTarolo.BicikliPontok.Count; i++)
+                Console.WriteLine($"{BicikliPontTarolo.BicikliPontok[i].getNev()}");
+            Console.WriteLine("\n");
         }
 
         public static void beolvas()
@@ -66,9 +71,16 @@ namespace Szoftech.Tarolok
                     string nev = adatok[0];
                     string[] biciklik = adatok[1].Split(',');
                     BicikliPont bicikliPont = new BicikliPont(nev);
-                    foreach (var bicikli in biciklik)
+                    foreach (var rendszam in biciklik)
                     {
-                        bicikliPont.addBicikli(BicikliTarolo.getBicikli(bicikli));
+                        if (!(string.IsNullOrWhiteSpace(rendszam)))
+                        {
+                            Bicikli bicikli = BicikliTarolo.getBicikli(rendszam);
+                            if (bicikli != null)
+                            {
+                                bicikliPont.addBicikli(bicikli);
+                            }
+                        }
                     }
                     BicikliPontHozzaadasa(bicikliPont);
                 }
@@ -83,23 +95,31 @@ namespace Szoftech.Tarolok
 
         public static void kiment()
         {
-            StreamWriter sw = new StreamWriter("biciklipontok.txt");
-
-            foreach (var bicikliPont in bicikliPontok)
+            try
             {
-                string biciklik = "";
-                if (bicikliPont.getBiciklik().Count > 0)
+                StreamWriter sw = new StreamWriter("biciklipontok.txt");
+
+                foreach (var bicikliPont in bicikliPontok)
                 {
-                    foreach (var bicikli in bicikliPont.getBiciklik())
+                    string biciklik = "";
+                    if (bicikliPont.getBiciklik().Count > 0)
                     {
-                        biciklik += bicikli.Rendszam + ",";
+                        foreach (var bicikli in bicikliPont.getBiciklik())
+                        {
+                            biciklik += bicikli.Rendszam + ",";
+                        }
                     }
+
+                    sw.WriteLine(bicikliPont.getNev() + ";" + biciklik);
                 }
 
-                sw.WriteLine(bicikliPont.getNev() + ";" + biciklik);
+                sw.Close();
             }
-
-            sw.Close();
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
     }
 }
