@@ -15,7 +15,9 @@ namespace Szoftech
         static void Main(string[] args)
         {
             FelhasznaloTarolo.beolvas();
+            BicikliTarolo.beolvas();
             BicikliPontTarolo.beolvas();
+            KolcsonzesTarolo.beolvas();
             // _felhasznalo = new Admin("admin", "admin", "admin", FelhasznaloTipus.Admin);
             while (kilepes == false)
             {

@@ -42,21 +42,27 @@ namespace Szoftech.Tarolok
 
         public static void beolvas()
         {
-            StreamReader sr = new StreamReader("kolcsonzestarolo.txt");
-            while (!sr.EndOfStream)
+            try
             {
+                StreamReader sr = new StreamReader("kolcsonzestarolo.txt");
+                while (!sr.EndOfStream)
+                {
 
-                string sor = sr.ReadLine();
-                string[] adatok = sor.Split(';');
+                    string sor = sr.ReadLine();
+                    string[] adatok = sor.Split(';');
 
-                string bicikli = adatok[0];
-                DateTime kezdet = Convert.ToDateTime(adatok[1]);
-                string felhasznalo = adatok[2];
-                
-                Kolcsonzesek.Add(new Kolcsonzes(BicikliTarolo.getBicikli(bicikli), kezdet, felhasznalo));
+                    string bicikli = adatok[0];
+                    DateTime kezdet = Convert.ToDateTime(adatok[1]);
+                    string felhasznalo = adatok[2];
 
+                    Kolcsonzesek.Add(new Kolcsonzes(BicikliTarolo.getBicikli(bicikli), kezdet, felhasznalo));
+
+                }
+                sr.Close();
             }
-            sr.Close();
+            catch (Exception e)
+            {
+            }
         }
 
         public static void kiment()

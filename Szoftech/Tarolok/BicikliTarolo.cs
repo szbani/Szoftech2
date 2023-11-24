@@ -41,20 +41,27 @@ namespace Szoftech.Tarolok
 
         public static void beolvas()
         {
-            StreamReader sr = new StreamReader("biciklitarolo.txt");
-            while (!sr.EndOfStream)
+            try
             {
+                StreamReader sr = new StreamReader("biciklitarolo.txt");
+                while (!sr.EndOfStream)
+                {
 
-                string sor = sr.ReadLine();
-                string[] adatok = sor.Split(';');
-                string marka = adatok[0];
-                string rendszam = adatok[1];
-                bool hibas = Convert.ToBoolean(adatok[2]);
-                bool kolcsonozve = Convert.ToBoolean(adatok[3]);
-                Biciklik.Add(new Bicikli(marka, rendszam, hibas, kolcsonozve));
+                    string sor = sr.ReadLine();
+                    string[] adatok = sor.Split(';');
+                    string marka = adatok[0];
+                    string rendszam = adatok[1];
+                    bool hibas = Convert.ToBoolean(adatok[2]);
+                    bool kolcsonozve = Convert.ToBoolean(adatok[3]);
+                    Biciklik.Add(new Bicikli(marka, rendszam, hibas, kolcsonozve));
 
+                }
+                sr.Close();
             }
-            sr.Close();
+            catch (Exception e)
+            {
+            }
+            
         }
 
         public static void kiment()

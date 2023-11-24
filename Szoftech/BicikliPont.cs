@@ -38,6 +38,11 @@ namespace Szoftech
             }
         }
 
+        public List<Bicikli> getBiciklik()
+        {
+            return biciklik;
+        }
+
         public Bicikli getBicikli(string rendszam)
         {
             //return biciklik[rendszam];

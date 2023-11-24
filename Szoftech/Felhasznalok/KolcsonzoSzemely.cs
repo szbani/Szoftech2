@@ -75,6 +75,7 @@ namespace Szoftech
                 {
                     bicikli.Kolcsonozve = true;
                     bicikliPont.removeBicikli(bicikli);
+                    KolcsonzesTarolo.kiment();
                 }
             }
         }
@@ -88,6 +89,7 @@ namespace Szoftech
                 {
                     bicikli.Kolcsonozve = false;
                     bicikliPont.addBicikli(bicikli);
+                    KolcsonzesTarolo.kiment();
                 }
             }
         }

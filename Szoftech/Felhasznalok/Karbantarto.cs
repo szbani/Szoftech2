@@ -140,7 +140,7 @@ namespace Szoftech
                         Console.WriteLine("Nincs ilyen bicikli pont");
                         break;
                     }
-                    bicikli = new Bicikli(rendszam, tipus, false, false);
+                    bicikli = new Bicikli(tipus, rendszam, false, false);
                     bicikliHozaadasa(bicikli, bicikliPont);
                     break;
                 case "6":

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,6 @@ namespace Szoftech.Tarolok
 {
     internal static class BicikliPontTarolo
     {
-        
         private static List<BicikliPont> bicikliPontok = new List<BicikliPont>();
 
         public static List<BicikliPont> BicikliPontok
@@ -22,13 +22,13 @@ namespace Szoftech.Tarolok
         {
             try
             {
+                if (bicikliPontok.Contains(bicikliPont)) throw new Exception("Már létezik ilyen biciklipont!");
                 bicikliPontok.Add(bicikliPont);
             }
             catch (Exception e)
             {
                 Console.WriteLine("Biciklipont hozzáadása sikertelen!");
             }
-            
         }
 
         public static void BicikliPontTorlese(BicikliPont bicikliPont)
@@ -36,7 +36,8 @@ namespace Szoftech.Tarolok
             try
             {
                 bicikliPontok.Remove(bicikliPont);
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 Console.WriteLine("Biciklipont törlése sikertelen!");
             }
@@ -63,26 +64,42 @@ namespace Szoftech.Tarolok
                     sor = sr.ReadLine();
                     string[] adatok = sor.Split(';');
                     string nev = adatok[0];
+                    string[] biciklik = adatok[1].Split(',');
                     BicikliPont bicikliPont = new BicikliPont(nev);
+                    foreach (var bicikli in biciklik)
+                    {
+                        bicikliPont.addBicikli(BicikliTarolo.getBicikli(bicikli));
+                    }
                     BicikliPontHozzaadasa(bicikliPont);
                 }
+
                 sr.Close();
             }
             catch (Exception e)
             {
-                Console.WriteLine("Beolvasás sikertelen!");
+                Console.WriteLine("Sikertelen beolvasás");
             }
         }
 
         public static void kiment()
         {
             StreamWriter sw = new StreamWriter("biciklipontok.txt");
+
             foreach (var bicikliPont in bicikliPontok)
             {
-                sw.WriteLine(bicikliPont.getNev());
+                string biciklik = "";
+                if (bicikliPont.getBiciklik().Count > 0)
+                {
+                    foreach (var bicikli in bicikliPont.getBiciklik())
+                    {
+                        biciklik += bicikli.Rendszam + ",";
+                    }
+                }
+
+                sw.WriteLine(bicikliPont.getNev() + ";" + biciklik);
             }
+
             sw.Close();
         }
-
     }
 }

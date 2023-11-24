@@ -12,19 +12,16 @@ namespace Szoftech
         private string marka;
         private string rendszam;
         private bool hibas;
-        private KolcsonzoSzemely kolcsonozte;
+        private bool kolcsonozve;
         private string hibaLeiras;
-        private BicikliPont bicikliPont;
 
 
-        public Bicikli(string marka, string rendszam, bool hibas, KolcsonzoSzemely kolcsonozte,BicikliPont bicikliPont)
+        public Bicikli(string marka, string rendszam, bool hibas, bool kolcsonozve)
         {
             this.marka = marka;
             this.rendszam = rendszam;
             this.hibas = hibas;
-            this.kolcsonozte = kolcsonozte;
-            this.hibaLeiras = "";
-            this.bicikliPont = bicikliPont;
+            this.kolcsonozve = kolcsonozve;
         }
 
         public string getBicikliPosition()
@@ -40,8 +37,7 @@ namespace Szoftech
         public string Marka { get => marka; set => marka = value; }
         public string Rendszam { get => rendszam; set => rendszam = value; }
         public bool Hibas { get => hibas; set => hibas = value; }
-        public KolcsonzoSzemely Kolcsonozte { get => kolcsonozte; set => kolcsonozte = value; }
+        public bool Kolcsonozve { get => kolcsonozve; set => kolcsonozve = value; }
         public string HibaLeiras { get => hibaLeiras; set => hibaLeiras = value; }
-        public BicikliPont BicikliPont { get => bicikliPont; set => bicikliPont = value; }
     }
 }
